@@ -119,54 +119,208 @@ export function AIProvider({ children }: { children: ReactNode }) {
     }
 
     /**
-     * Accept code suggestion
+     * Validate code before acceptance
+     */
+    const validateCode = (code: string, language: string): { valid: boolean; error?: string } => {
+        // Basic validation rules
+        if (!code || code.trim().length === 0) {
+            return { valid: false, error: "Code is empty" }
+        }
+
+        // Check for common placeholders that indicate incomplete code
+        const placeholders = ["...", "// TODO", "// rest of code", "/* ... */", "# ..."]
+        for (const placeholder of placeholders) {
+            if (code.includes(placeholder)) {
+                return { 
+                    valid: false, 
+                    error: "Code contains placeholders. Please request complete code from AI." 
+                }
+            }
+        }
+
+        // Language-specific validation
+        const languageValidation: { [key: string]: () => { valid: boolean; error?: string } } = {
+            javascript: () => {
+                // Check for output - must have console.log
+                if (!code.includes("console.log") && !code.includes("console.info") && !code.includes("console.warn")) {
+                    return { 
+                        valid: false, 
+                        error: "JavaScript code must include console.log() to show output when executed" 
+                    }
+                }
+                return { valid: true }
+            },
+            typescript: () => {
+                // Check for output
+                if (!code.includes("console.log") && !code.includes("console.info") && !code.includes("console.warn")) {
+                    return { 
+                        valid: false, 
+                        error: "TypeScript code must include console.log() to show output when executed" 
+                    }
+                }
+                return { valid: true }
+            },
+            python: () => {
+                // Check for proper indentation (Python requirement)
+                const lines = code.split("\n").filter(line => line.trim().length > 0)
+                if (lines.length === 0) {
+                    return { valid: false, error: "Python code is empty" }
+                }
+                // Check for output
+                if (!code.includes("print(")) {
+                    return { 
+                        valid: false, 
+                        error: "Python code must include print() to show output when executed" 
+                    }
+                }
+                return { valid: true }
+            },
+            java: () => {
+                // Check for class and main method
+                if (!code.includes("class ") || !code.includes("public static void main")) {
+                    return { 
+                        valid: false, 
+                        error: "Java code must include a class and main method" 
+                    }
+                }
+                // Check for output
+                if (!code.includes("System.out.print")) {
+                    return { 
+                        valid: false, 
+                        error: "Java code must include System.out.println() to show output" 
+                    }
+                }
+                return { valid: true }
+            },
+            cpp: () => {
+                // Check for main function
+                if (!code.includes("int main(")) {
+                    return { 
+                        valid: false, 
+                        error: "C++ code must include main() function" 
+                    }
+                }
+                // Check for output
+                if (!code.includes("std::cout") && !code.includes("cout <<")) {
+                    return { 
+                        valid: false, 
+                        error: "C++ code must include std::cout to show output" 
+                    }
+                }
+                return { valid: true }
+            },
+            c: () => {
+                // Check for main function
+                if (!code.includes("int main(")) {
+                    return { 
+                        valid: false, 
+                        error: "C code must include main() function" 
+                    }
+                }
+                // Check for output
+                if (!code.includes("printf(")) {
+                    return { 
+                        valid: false, 
+                        error: "C code must include printf() to show output" 
+                    }
+                }
+                return { valid: true }
+            }
+        }
+
+        const validator = languageValidation[language.toLowerCase()]
+        if (validator) {
+            return validator()
+        }
+
+        // Default: code is valid
+        return { valid: true }
+    }
+
+    /**
+     * Accept code suggestion with validation
      */
     const acceptSuggestion = (suggestionId: string) => {
         const suggestion = pendingSuggestions.find((s) => s.id === suggestionId)
-        if (!suggestion) return
+        if (!suggestion) {
+            toast.error("Suggestion not found")
+            return
+        }
 
-        // Update the file with suggested code
+        // Validate the code before accepting
+        const validation = validateCode(
+            suggestion.suggestedCode, 
+            activeFile?.name.split(".").pop() || "text"
+        )
+
+        if (!validation.valid) {
+            toast.error(validation.error || "Invalid code")
+            return
+        }
+
+        // Check if the file is still the same
         if (activeFile && activeFile.id === suggestion.fileId) {
-            setActiveFile({
+            // Update the file with suggested code
+            const updatedFile = {
                 ...activeFile,
                 content: suggestion.suggestedCode,
-            })
+            }
+            
+            setActiveFile(updatedFile)
 
             // Emit file update to other users
             socket.emit(SocketEvent.FILE_UPDATED, {
                 fileId: activeFile.id,
                 newContent: suggestion.suggestedCode,
             })
-        }
 
-        // Update suggestion status
-        setPendingSuggestions((prev) =>
-            prev.map((s) =>
-                s.id === suggestionId ? { ...s, status: "accepted" } : s
+            // Update suggestion status
+            setPendingSuggestions((prev) =>
+                prev.map((s) =>
+                    s.id === suggestionId ? { ...s, status: "accepted" } : s
+                )
             )
-        )
 
-        // Notify other users
-        socket.emit(SocketEvent.AI_CODE_ACCEPTED, {
-            suggestionId,
-            fileId: suggestion.fileId,
-        })
+            // Notify other users
+            socket.emit(SocketEvent.AI_CODE_ACCEPTED, {
+                suggestionId,
+                fileId: suggestion.fileId,
+            })
 
-        toast.success("Code suggestion applied!")
+            toast.success("✅ Code suggestion applied! You can now run it in the compiler.")
+        } else {
+            toast.error("File mismatch. Please ensure the correct file is open.")
+        }
     }
 
     /**
-     * Reject code suggestion
+     * Reject code suggestion with proper cleanup
      */
     const rejectSuggestion = (suggestionId: string) => {
+        const suggestion = pendingSuggestions.find((s) => s.id === suggestionId)
+        if (!suggestion) {
+            toast.error("Suggestion not found")
+            return
+        }
+
+        // Update suggestion status to rejected
         setPendingSuggestions((prev) =>
             prev.map((s) =>
                 s.id === suggestionId ? { ...s, status: "rejected" } : s
             )
         )
 
+        // Notify other users
         socket.emit(SocketEvent.AI_CODE_REJECTED, { suggestionId })
-        toast.success("Code suggestion rejected")
+
+        // Remove from pending after a short delay (for visual feedback)
+        setTimeout(() => {
+            setPendingSuggestions((prev) =>
+                prev.filter((s) => s.id !== suggestionId)
+            )
+        }, 1000)
+
+        toast.success("❌ Code suggestion rejected and removed")
     }
 
     /**

@@ -1,10 +1,12 @@
 import { useAI } from "@/context/AIContext"
 import { FormEvent, useRef, useEffect } from "react"
-import { LuSendHorizonal, LuSparkles, LuTrash2 } from "react-icons/lu"
+import { LuSendHorizonal, LuSparkles, LuTrash2, LuPlay } from "react-icons/lu"
 import CodeSuggestion from "../../ai/CodeSuggestion"
+import { useFileSystem } from "@/context/FileContext"
 
 function AIView() {
     const { messages, isAITyping, pendingSuggestions, sendQuery, acceptSuggestion, rejectSuggestion, clearMessages } = useAI()
+    const { activeFile } = useFileSystem()
     const inputRef = useRef<HTMLInputElement | null>(null)
     const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
@@ -53,11 +55,18 @@ function AIView() {
                             suggestions!
                         </p>
                         <div className="mt-4 space-y-1 text-xs">
-                            <p>• I can see your current file</p>
-                            <p>• I have access to your file structure</p>
-                            <p>• I can view your drawings and chat history</p>
-                            <p>• I can suggest code modifications</p>
+                            <p>✅ I can see your current file</p>
+                            <p>✅ I have access to your file structure</p>
+                            <p>✅ I can view your drawings and chat history</p>
+                            <p>✅ I generate compiler-ready code</p>
+                            <p>🚀 Accepted code runs directly in the compiler!</p>
                         </div>
+                        {activeFile && (
+                            <div className="mt-4 rounded-md bg-dark p-2 text-xs">
+                                <p className="mb-1 text-primary">📄 Current File:</p>
+                                <p className="font-mono">{activeFile.name}</p>
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div className="space-y-4">
@@ -122,8 +131,15 @@ function AIView() {
 
             {/* Pending Suggestions Summary */}
             {pendingSuggestions.filter((s) => s.status === "pending").length > 0 && (
-                <div className="mb-3 rounded-md bg-yellow-900/30 p-2 text-xs text-yellow-300">
-                    ⚠️ You have {pendingSuggestions.filter((s) => s.status === "pending").length} pending code suggestion(s)
+                <div className="mb-3 rounded-md bg-yellow-900/30 border border-yellow-700 p-3 text-xs">
+                    <div className="flex items-center gap-2 mb-2 text-yellow-300 font-semibold">
+                        <LuPlay className="text-yellow-300" />
+                        <span>Ready to Run!</span>
+                    </div>
+                    <p className="text-yellow-200">
+                        ⚠️ You have {pendingSuggestions.filter((s) => s.status === "pending").length} pending code suggestion(s). 
+                        Accept to update your file and run in the compiler!
+                    </p>
                 </div>
             )}
 
@@ -132,7 +148,7 @@ function AIView() {
                 <input
                     ref={inputRef}
                     type="text"
-                    placeholder="Ask AI about your code..."
+                    placeholder={activeFile ? `Ask AI about ${activeFile.name}...` : "Ask AI about your code..."}
                     className="flex-1 rounded-md border border-primary bg-dark px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
                     disabled={isAITyping}
                 />
@@ -147,8 +163,7 @@ function AIView() {
             </form>
 
             <div className="mt-2 text-xs text-gray-500">
-                💡 Tip: I can access your current file, file structure, drawings, and
-                chat history!
+                💡 Tip: Generated code is compiler-ready! Accept suggestions and use the Run view to execute.
             </div>
         </div>
     )

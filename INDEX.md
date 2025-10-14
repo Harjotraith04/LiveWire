@@ -31,11 +31,27 @@ Welcome to the comprehensive documentation for the AI-powered LiveWire collabora
    - Best practices
    - Security considerations
 
+4. **[AI_COMPILER_INTEGRATION.md](./AI_COMPILER_INTEGRATION.md)** 🚀 **COMPILER INTEGRATION**
+   - How AI works with code compiler
+   - Language-specific code generation
+   - Validation system
+   - Complete workflow examples
+   - Troubleshooting compiler issues
+
+5. **[AI_TESTING_GUIDE.md](./AI_TESTING_GUIDE.md)** 🧪 **TESTING GUIDE**
+   - Complete test suite for AI + Compiler
+   - Test cases for all languages
+   - Validation testing
+   - Accept/Reject workflow tests
+   - Integration tests
+   - Performance benchmarks
+   - Debugging tips
+
 ---
 
 ## 🎯 Quick References
 
-4. **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** ⚡ **COMMAND CHEAT SHEET**
+6. **[QUICK_REFERENCE.md](./QUICK_REFERENCE.md)** ⚡ **COMMAND CHEAT SHEET**
    - Quick setup commands
    - Example AI queries
    - UI elements guide
@@ -46,14 +62,14 @@ Welcome to the comprehensive documentation for the AI-powered LiveWire collabora
 
 ## 🏗️ Technical Documentation
 
-5. **[ARCHITECTURE.md](./ARCHITECTURE.md)** 🏛️ **SYSTEM ARCHITECTURE**
+7. **[ARCHITECTURE.md](./ARCHITECTURE.md)** 🏛️ **SYSTEM ARCHITECTURE**
    - Visual architecture diagrams
    - Data flow illustrations
    - Component structure
    - Technology stack
    - Performance considerations
 
-6. **[CHANGES_SUMMARY.md](./CHANGES_SUMMARY.md)** 📝 **DETAILED CHANGES**
+8. **[CHANGES_SUMMARY.md](./CHANGES_SUMMARY.md)** 📝 **DETAILED CHANGES**
    - All files created/modified
    - Feature list
    - Socket events
@@ -72,6 +88,8 @@ LiveWire/
 │   ├── PROJECT_COMPLETE.md       ← Start here
 │   ├── SETUP_GUIDE.md           ← Setup instructions
 │   ├── AI_README.md             ← Features & usage
+│   ├── AI_COMPILER_INTEGRATION.md ← Compiler guide
+│   ├── AI_TESTING_GUIDE.md      ← Testing procedures
 │   ├── QUICK_REFERENCE.md       ← Quick commands
 │   ├── ARCHITECTURE.md          ← Technical details
 │   └── CHANGES_SUMMARY.md       ← Change history
