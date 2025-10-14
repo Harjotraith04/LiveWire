@@ -61,6 +61,10 @@ function Sidebar() {
                     icon={viewIcons[VIEWS.CHATS]}
                 />
                 <SidebarButton
+                    viewName={VIEWS.AI}
+                    icon={viewIcons[VIEWS.AI]}
+                />
+                <SidebarButton
                     viewName={VIEWS.RUN}
                     icon={viewIcons[VIEWS.RUN]}
                 />
