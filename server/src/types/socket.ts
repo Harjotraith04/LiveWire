@@ -26,6 +26,13 @@ enum SocketEvent {
 	REQUEST_DRAWING = "request-drawing",
 	SYNC_DRAWING = "sync-drawing",
 	DRAWING_UPDATE = "drawing-update",
+	// AI Events
+	AI_QUERY = "ai-query",
+	AI_RESPONSE = "ai-response",
+	AI_CODE_SUGGESTION = "ai-code-suggestion",
+	AI_CODE_ACCEPTED = "ai-code-accepted",
+	AI_CODE_REJECTED = "ai-code-rejected",
+	AI_TYPING = "ai-typing",
 }
 
 interface SocketContext {
