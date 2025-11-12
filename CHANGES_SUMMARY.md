@@ -1,7 +1,7 @@
 # 🎯 AI Integration - Complete Changes Summary
 
 ## Overview
-Successfully integrated Google Gemini 2.5 Flash AI into LiveWire collaborative code editor with full context awareness of code, file structure, drawings, and chat history.
+Successfully integrated Google Gemini 2.5 Flash AI into CodeFlow collaborative code editor with full context awareness of code, file structure, drawings, and chat history.
 
 ---
 
@@ -418,7 +418,7 @@ To verify the integration is complete:
 ## 🙏 Credits
 
 - **AI Model**: Google Gemini 2.5 Flash
-- **Original Project**: LiveWire Collaborative Editor
+- **Original Project**: CodeFlow Collaborative Editor
 - **Integration**: Agentic AI with Code Compiler
 
 ---

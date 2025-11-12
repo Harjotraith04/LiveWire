@@ -1,7 +1,7 @@
 # AI + Compiler Integration Testing Guide 🧪
 
 ## Overview
-This guide helps you test the complete AI-to-Compiler integration in LiveWire, ensuring that AI-generated code is executable and meets compiler requirements.
+This guide helps you test the complete AI-to-Compiler integration in CodeFlow, ensuring that AI-generated code is executable and meets compiler requirements.
 
 ---
 
@@ -20,7 +20,7 @@ This guide helps you test the complete AI-to-Compiler integration in LiveWire, e
 **Objective**: Verify AI generates executable JS code with output
 
 **Steps**:
-1. Open LiveWire and create a new file: `test.js`
+1. Open CodeFlow and create a new file: `test.js`
 2. Open AI sidebar (sparkle icon ✨)
 3. Type: `"give me code for palindrome check"`
 4. Wait for AI response

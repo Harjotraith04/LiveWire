@@ -202,7 +202,7 @@ class AIService {
 			const needsCodeMod = this.requiresCodeModification(query)
 			const contextPrompt = this.buildContextPrompt(context)
 
-			let systemPrompt = `You are an expert AI coding assistant integrated into a collaborative code editor called LiveWire. You have access to:
+			let systemPrompt = `You are an expert AI coding assistant integrated into a collaborative code editor called CodeFlow. You have access to:
 - The current code file being edited
 - The entire file structure of the project
 - Any drawings or diagrams created by users

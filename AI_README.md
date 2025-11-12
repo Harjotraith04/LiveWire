@@ -1,8 +1,8 @@
-# LiveWire - AI-Powered Collaborative Code Editor
+# CodeFlow - AI-Powered Collaborative Code Editor
 
 ## 🤖 AI Integration Features
 
-LiveWire now includes a powerful AI assistant powered by **Google Gemini 2.5 Flash** that provides intelligent code assistance with full context awareness.
+CodeFlow now includes a powerful AI assistant powered by **Google Gemini 2.5 Flash** that provides intelligent code assistance with full context awareness.
 
 ### ✨ Key AI Capabilities
 
@@ -76,7 +76,7 @@ LiveWire now includes a powerful AI assistant powered by **Google Gemini 2.5 Fla
 
 ### Accessing the AI
 
-1. Open the sidebar in LiveWire
+1. Open the sidebar in CodeFlow
 2. Click the **✨ AI Assistant** icon (sparkles icon)
 3. The AI chat interface will open
 
@@ -328,7 +328,7 @@ To extend AI capabilities:
 
 - [Google Gemini API Documentation](https://ai.google.dev/docs)
 - [Socket.IO Documentation](https://socket.io/docs/)
-- [LiveWire Original Repository](https://github.com/Harjotraith04/LiveWire_CN)
+- [CodeFlow Original Repository](https://github.com/Harjotraith04/LiveWire_CN)
 
 ## ⚡ Quick Start Checklist
 

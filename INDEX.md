@@ -1,6 +1,6 @@
-# 📚 LiveWire AI Integration - Documentation Index
+# 📚 CodeFlow AI Integration - Documentation Index
 
-Welcome to the comprehensive documentation for the AI-powered LiveWire collaborative code editor!
+Welcome to the comprehensive documentation for the AI-powered CodeFlow collaborative code editor!
 
 ---
 
@@ -81,7 +81,7 @@ Welcome to the comprehensive documentation for the AI-powered LiveWire collabora
 ## 📂 File Organization
 
 ```
-LiveWire/
+CodeFlow/
 │
 ├── 📖 Documentation Files
 │   ├── INDEX.md                  ← You are here!
@@ -328,4 +328,4 @@ This documentation covers everything from initial setup to advanced features. St
 ---
 
 **Last Updated**: December 2024
-**Maintained by**: LiveWire Development Team
+**Maintained by**: CodeFlow Development Team

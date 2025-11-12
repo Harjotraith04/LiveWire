@@ -15,6 +15,7 @@ export default {
             },
             animation: {
                 "up-down": "up-down 2s ease-in-out infinite alternate",
+                "float": "float 3s ease-in-out infinite",
             },
         },
     },
