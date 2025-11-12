@@ -1,8 +1,29 @@
 {
     "name": "codeflow-client",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
     "type": "module",
+    "description": "Real-time collaborative code editor - Frontend application",
+    "author": "Harjot Singh <https://github.com/Harjotraith04>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Harjotraith04/LiveWire.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Harjotraith04/LiveWire/issues"
+    },
+    "homepage": "https://github.com/Harjotraith04/LiveWire#readme",
+    "keywords": [
+        "code-editor",
+        "collaborative",
+        "real-time",
+        "monaco-editor",
+        "websocket",
+        "react",
+        "typescript",
+        "vite"
+    ],
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",

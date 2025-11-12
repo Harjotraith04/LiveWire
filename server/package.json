@@ -1,16 +1,33 @@
 {
 	"name": "codeflow-server",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Real-time collaborative code editor - Backend server with WebSocket support",
 	"main": "dist/server.js",
 	"scripts": {
 		"dev": "nodemon --exec ts-node src/server.ts",
 		"start": "node dist/server.js",
 		"build": "tsc"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": [
+		"websocket",
+		"socket.io",
+		"real-time",
+		"collaborative",
+		"code-editor",
+		"nodejs",
+		"express",
+		"typescript"
+	],
+	"author": "Harjot Singh <https://github.com/Harjotraith04>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Harjotraith04/LiveWire.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Harjotraith04/LiveWire/issues"
+	},
+	"homepage": "https://github.com/Harjotraith04/LiveWire#readme",
 	"dependencies": {
 		"@google/generative-ai": "^0.24.1",
 		"@types/uuid": "^10.0.0",
